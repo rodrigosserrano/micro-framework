@@ -1,9 +1,9 @@
 <?php
 
-namespace App\core\router;
+namespace App\Core\Router;
 
-use App\core\ServerParams;
-use App\routes\Routes;
+use App\Core\ServerParams;
+use App\Routes\Routes;
 
 class RouterTreait
 {
@@ -46,7 +46,7 @@ class RouterTreait
      * if exists, returns the "Controller@method"
      * @return mixed|null
      */
-    private function dynamicRouter() : mixed
+    private function regexRouter() : mixed
     {
         $foundClassMethod = null;
         foreach ($this->_routesMaped[$this->_requestType] as $path => $controllerMethod) {
@@ -64,7 +64,7 @@ class RouterTreait
      */
     public function get() : string {
         if ($this->simpleRouter()) return $this->simpleRouter();
-        if ($this->dynamicRouter()) return $this->dynamicRouter();
+        if ($this->regexRouter()) return $this->regexRouter();
 
         return 'Base\NotFoundController@index';
     }

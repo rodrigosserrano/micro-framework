@@ -1,8 +1,8 @@
 <?php
 
-namespace App\core\router;
+namespace App\Core\Router;
 
-use App\core\LoadController;
+use App\Core\LoadController;
 
 class Router
 {

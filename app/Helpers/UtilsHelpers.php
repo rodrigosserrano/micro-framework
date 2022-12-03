@@ -2,7 +2,7 @@
 
 class UtilsHelpers
 {
-    public static function responseJson(string|array $response, int $statusCode) : void
+    public static function responseJson(string|array|object $response, ?int $statusCode = 200) : void
     {
         http_response_code($statusCode);
         echo json_encode([

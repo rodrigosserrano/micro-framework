@@ -1,6 +1,6 @@
 <?php
 
-namespace App\core;
+namespace App\Core;
 
 use App\Routes\Routes;
 
@@ -14,13 +14,15 @@ class LoadController
         if(!str_contains($router, '@')) throw new \Exception("Invalid route or Controller@method in Routes", 500);
         [$controllerName, $method] = explode('@', $router);
 
-        $controllerNamespace = "App\controllers\\$controllerName";
+        $controllerNamespace = "App\Controllers\\$controllerName";
         if(!class_exists($controllerNamespace)) throw new \Exception("Controller not found", 500);
 
         $controllerInstance = new $controllerNamespace;
         if(!method_exists($controllerInstance, $method)) throw new \Exception("Method not found in controller $controllerName", 500);
 
-        $controllerInstance->$method($this->getParamsUri($router));
+        $args = $this->getParamsUri($router);
+
+        call_user_func([$controllerInstance, $method], ...$args);
     }
 
     private function getParamsUri(string $router) : array
@@ -35,5 +37,4 @@ class LoadController
         sort($params); // used sort to rearrange the positions
         return $params;
     }
-
 }
