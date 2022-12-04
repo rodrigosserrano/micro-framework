@@ -1,28 +1,16 @@
 <?php
 
-namespace App\Routes;
+use App\Core\Router\Router;
 
-class Routes
-{
-    //TODO: Middleware
-    public static function get()
-    {
-        return [
-            'GET'       => [
-                '/users/[0-9]+'         => 'UserController@find',
-                '/users'                => 'UserController@findAll'
-            ],
-            'POST'      => [
-                '/users'                => 'UserController@register',
-                '/login'                => 'AuthController@login',
-                '/users/[0-9]+/drink'   => 'UserController@drink'
-            ],
-            'PUT'       => [
-                '/users/[0-9]+'         => 'UserController@update'
-            ],
-            'DELETE'    => [
-                '/users/[0-9]+'         => 'UserController@delete'
-            ]
-        ];
-    }
-}
+Router::get('/users/[0-9]+', 'UserController@find', ['auth']);
+Router::get('/users', 'UserController@findAll', ['auth']);
+
+Router::post('/users', 'UserController@register');
+Router::post('/login', 'AuthController@login');
+Router::post('/users/[0-9]+/drink', 'UserController@drink', ['auth']);
+
+Router::put('/users/[0-9]+', 'UserController@update', ['auth']);
+
+Router::delete('/users/[0-9]+', 'UserController@delete', ['auth']);
+
+//UtilsHelpers::dd(Router::$routes);

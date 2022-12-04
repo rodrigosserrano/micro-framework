@@ -53,7 +53,8 @@ class Model
     public function find(string $field, string|int|bool|null $value = '') : mixed
     {
         try {
-            $query = "SELECT {$this->selectFields} FROM {$this->table} where {$field} = {$value}";
+            $query = "SELECT {$this->selectFields} FROM {$this->table} where {$field} = ";
+            $query .= (is_int($value)) ? "$value" : "'$value'";
 
             return Connection::conn()->query($query)->fetch();
         } catch (PDOException $e) {

@@ -2,8 +2,7 @@
 
 namespace App\Core\Router;
 
-use App\Core\ServerParams;
-use App\Routes\Routes;
+use App\Core\Http\Request;
 
 class RouterTreait
 {
@@ -18,9 +17,9 @@ class RouterTreait
      */
     public function __construct()
     {
-        $this->_uri = ServerParams::Uri();
-        $this->_requestType = ServerParams::requestType();
-        $this->_routesMaped = Routes::get();
+        $this->_uri = Request::uri();
+        $this->_requestType = Request::requestType();
+        $this->_routesMaped = Router::$routes;
     }
 
     /**
@@ -62,7 +61,7 @@ class RouterTreait
     /*
      * This method returns the "Controller@method" matched
      */
-    public function get() : string {
+    public function get() : string|array {
         if ($this->simpleRouter()) return $this->simpleRouter();
         if ($this->regexRouter()) return $this->regexRouter();
 

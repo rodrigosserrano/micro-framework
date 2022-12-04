@@ -6,6 +6,6 @@ class NotFoundController extends BaseController
 {
     public function index() : void
     {
-        \UtilsHelpers::responseJson("Path not found :(", 404);
+        $this->response('Not Found', 404)->send();
     }
 }

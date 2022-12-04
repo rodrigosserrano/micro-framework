@@ -2,48 +2,18 @@
 
 namespace App\Controllers\Base;
 
-use App\Core\ServerParams;
+use App\Core\Http\Request;
+use App\Core\Http\Response;
 
 class BaseController
 {
-
-    protected object $_json;
-
-    public function __construct()
+    public function response($responseBody = null, ?int $statusCode = 200) : Response
     {
-        header('Content-Type: application/json');
+        return (new Response($responseBody, $statusCode));
     }
 
-    /**
-     * This method get the body request and validate if is a Json
-     * @return object|null
-     * @throws \Exception
-     */
-    protected function request() : object|null
+    public function request() : Request
     {
-        // Checks if is correct request type
-        if (!in_array(ServerParams::requestType(), ServerParams::requestsTypesAcceptBody())) throw new \Exception('Body is not accept in '.ServerParams::requestType(), 400);
-
-        // Checks headers
-        $headers = headers_list();
-        if(!in_array('Content-Type: application/json', $headers)) throw new \Exception('Content type is not a json.');
-
-        // Checks if is not null
-        $body = file_get_contents('php://input');
-        if (empty($body)) return null;
-
-        // Checks if is json
-        $this->_json = json_decode($body);
-        if (!is_object($this->_json)) throw new \Exception('Request body is not a JSON', 400);
-
-        return $this;
-    }
-
-    public function toArray(){
-        return (array) $this->_json;
-    }
-
-    public function toJson(){
-        return $this->_json;
+        return (new Request());
     }
 }
