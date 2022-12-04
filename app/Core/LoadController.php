@@ -3,30 +3,15 @@
 namespace App\Core;
 
 use App\Core\Http\Request;
-use App\Core\Http\Response;
 use App\Core\Router\Router;
 
 class LoadController
 {
-    private ?Request $_req;
-    public function __construct(){
-        $this->_req = new Request();
-    }
-
     /**
      * TODO: comment this
      */
-    public function load(string|array $router) : void
+    public function load(string $router) : void
     {
-        // Middleware acts at the beginning, before validantions controller
-        if (is_array($router)) {
-            $middleware = array_keys($router)[0];
-            $router = $router[$middleware];
-
-            $middlewareNamespace = MapClass::$mapedClasses[$middleware];
-            (new $middlewareNamespace)->handle($this->_req);
-        }
-
         if(!str_contains($router, '@')) throw new \Exception("Invalid route or Controller@method in Routes", 500);
         [$controllerName, $method] = explode('@', $router);
 

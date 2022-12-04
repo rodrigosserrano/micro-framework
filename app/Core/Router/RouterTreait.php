@@ -58,7 +58,7 @@ class RouterTreait
         return $foundClassMethod;
     }
 
-    /*
+    /**
      * This method returns the "Controller@method" matched
      */
     public function get() : string|array {
