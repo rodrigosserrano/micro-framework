@@ -16,26 +16,26 @@ class Response
         $this->_statusCode = $statusCode;
     }
 
-    public function addHeader(array $headers) : Response
+    public function addHeader(array $headers): Response
     {
         $this->_headers = $headers;
         return $this;
     }
 
-    public function setHeaders() : void
+    public function setHeaders(): void
     {
         foreach ($this->_headers as $keyH => $valueH) {
             header("$keyH: $valueH");
         }
     }
 
-    public function setContentType($contentType) : Response
+    public function setContentType($contentType): Response
     {
         $this->_contentType = $contentType;
         return $this;
     }
 
-    public function send() : void
+    public function send(): void
     {
         header("Content-Type: {$this->_contentType}");
 

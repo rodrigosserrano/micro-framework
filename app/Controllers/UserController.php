@@ -3,55 +3,92 @@
 namespace App\Controllers;
 
 use App\Controllers\Base\BaseController;
-use App\Models\User;
 use App\Services\UserService;
+use Exception;
 
 class UserController extends BaseController
 {
-    private UserService $userService;
+    private UserService $_userService;
 
     public function __construct(){
-        $this->userService = new UserService();
+        $this->_userService = new UserService();
     }
 
+    /**
+     * @throws Exception
+     */
     public function register()
     {
         try {
-            $this->userService->registerUser($this->request());
-        } catch (\Exception $e) {
-            throw new \Exception($e->getMessage(), $e->getCode());
+            $this->_userService->register($this->request());
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage(), $e->getCode());
         }
         $this->response(statusCode:201)->send();
     }
 
+    /**
+     * @throws Exception
+     */
     public function find(int $userId)
     {
-        $a = (new User())->find('id', $userId);
-        $this->response($a)->send();
+        try {
+            $user = $this->_userService->find($userId);
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage(), $e->getCode());
+        }
+        $this->response($user)->send();
     }
 
+    /**
+     * @throws Exception
+     */
     public function findAll()
     {
-        $a = (new User())->findAll();
-
-        $this->response($a)->send();
+        try {
+            $users = $this->_userService->findAll();
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage(), $e->getCode());
+        }
+        $this->response($users)->send();
     }
 
+    /**
+     * @throws Exception
+     */
     public function drink(int $userId)
     {
-        $this->response("drink $userId")->send();
+        try {
+            $userDrink = $this->_userService->drink($this->request(), $userId);
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage(), $e->getCode());
+        }
+        $this->response($userDrink)->send();
     }
 
+    /**
+     * @throws Exception
+     */
     public function update(int $userId)
     {
-//        \UtilsHelpers::dd($this->request());
-//        (new User())->update($this->request()->toArray(), ['id' => $userId]);
-        $this->response("update $userId")->send();
+        try {
+            $this->_userService->updateData($this->request(), $userId);
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage(), $e->getCode());
+        }
+        $this->response(statusCode: 204)->send();
     }
 
+    /**
+     * @throws Exception
+     */
     public function delete(int $userId)
     {
-//        $a = (new User)->delete('id', $userId);
-        $this->response("delete $userId")->send();
+        try {
+            $this->_userService->delete($userId);
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage(), $e->getCode());
+        }
+        $this->response(statusCode: 204)->send();
     }
 }

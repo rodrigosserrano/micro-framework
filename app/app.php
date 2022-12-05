@@ -3,22 +3,22 @@ require '../vendor/autoload.php';
 require 'Routes/Routes.php';
 session_start();
 
-use App\Core\Config;
 use App\Core\Http\Request;
 use App\Core\MapClass;
 use App\Core\Router\RouterInit;
 
-/**
- * Configuration of connection with database
- */
-Config::setDbConfig([
-    'DB_CONN' => 'pgsql',
-    'DB_HOST' => '127.0.0.1',
-    'DB_PORT' => '5432',
-    'DB_USER' => 'postgres',
-    'DB_PASS' => '123456',
-    'DB_NAME' => 'mosyle',
-]);
+#################### ENVS ######################
+## CONFIG DATABASE CONNECTION
+putenv('DB_CONN=pgsql');
+putenv('DB_HOST=127.0.0.1');
+putenv('DB_PORT=5432');
+putenv('DB_USER=postgres');
+putenv('DB_PASS=123456');
+putenv('DB_NAME=mosyle');
+
+## EXPIRE TOKEN
+putenv('TOKEN_EXPIRES=1 hour');
+################################################
 
 /**
  * Configure cors of application, you can enable or disable this and pass which links is allowed

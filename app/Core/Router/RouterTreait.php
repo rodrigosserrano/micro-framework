@@ -28,7 +28,7 @@ class RouterTreait
      * if exists, returns the "Controller@method"
      * @return mixed|null
      */
-    private function simpleRouter() : mixed
+    private function simpleRouter(): mixed
     {
         if (array_key_exists($this->_uri, $this->_routesMaped[$this->_requestType])) {
             return $this->_routesMaped[$this->_requestType][$this->_uri];
@@ -45,7 +45,7 @@ class RouterTreait
      * if exists, returns the "Controller@method"
      * @return mixed|null
      */
-    private function regexRouter() : mixed
+    private function regexRouter(): mixed
     {
         $foundClassMethod = null;
         foreach ($this->_routesMaped[$this->_requestType] as $path => $controllerMethod) {
@@ -61,7 +61,7 @@ class RouterTreait
     /**
      * This method returns the "Controller@method" matched
      */
-    public function get() : string|array {
+    public function get(): string|array {
         if ($this->simpleRouter()) return $this->simpleRouter();
         if ($this->regexRouter()) return $this->regexRouter();
 

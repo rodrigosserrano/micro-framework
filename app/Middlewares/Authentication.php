@@ -3,6 +3,7 @@
 namespace App\Middlewares;
 
 use App\Core\Http\Request;
+use App\Services\TokenService;
 
 class Authentication implements InterfaceMiddleware
 {
@@ -12,17 +13,11 @@ class Authentication implements InterfaceMiddleware
         if (!$this->validateToken($request)) throw new \Exception('Unauthorized', 401);
     }
 
-    public function validateToken(Request $request) : bool
+    public function validateToken(Request $request): bool
     {
-        $headers = $request->getHeaders();
-        if (!array_key_exists('X-Api-Key', $headers)) {
-            return false;
-        }
+        if (!array_key_exists('token', $request->getHeaders())) return false;
 
-        if ($headers['X-Api-Key'] !== '12345') {
-            return false;
-        }
-
-        return true;
+        $tokenService = new TokenService();
+        return $tokenService->validateToken($request->getHeaders()['token']);
     }
 }

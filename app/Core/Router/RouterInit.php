@@ -28,7 +28,7 @@ class RouterInit
         }
     }
 
-    private static function _callMiddleware(array|string $controllerMethod, Request $request) : string
+    private static function _callMiddleware(array|string $controllerMethod, Request $request): string
     {
         if (!is_array($controllerMethod)) return $controllerMethod;
 

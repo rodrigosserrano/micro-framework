@@ -7,12 +7,12 @@ use App\Core\Http\Response;
 
 class BaseController
 {
-    public function response($responseBody = null, ?int $statusCode = 200) : Response
+    public function response($responseBody = null, ?int $statusCode = 200): Response
     {
         return (new Response($responseBody, $statusCode));
     }
 
-    public function request() : Request
+    public function request(): Request
     {
         return (new Request());
     }
