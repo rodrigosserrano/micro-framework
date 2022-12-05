@@ -13,8 +13,8 @@ putenv('DB_CONN=pgsql');
 putenv('DB_HOST=127.0.0.1');
 putenv('DB_PORT=5432');
 putenv('DB_USER=postgres');
-putenv('DB_PASS=123456');
-putenv('DB_NAME=mosyle');
+putenv('DB_PASS=1234');
+putenv('DB_NAME=databasetest');
 
 ## EXPIRE TOKEN
 putenv('TOKEN_EXPIRES=1 hour');
