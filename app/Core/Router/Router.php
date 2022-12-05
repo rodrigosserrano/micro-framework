@@ -19,7 +19,7 @@ class Router
 
     /**
      * Make dynamic methods routes
-     * @throws Exception
+     * @throws Error
      */
     public function __call($httpVerb, $args)
     {
