@@ -13,6 +13,6 @@
 
 ## How install
 
-- Run `composer dump-autoload`
+- Run `composer install`
 - Configure application in `app/app.php`
 - Enjoy !
