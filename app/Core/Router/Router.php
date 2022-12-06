@@ -24,7 +24,11 @@ class Router
     public function __call($httpVerb, $args)
     {
         if (!in_array(strtoupper($httpVerb), self::$acceptedNames)) throw new Error('Invalid router method', 500);
-        [$path, $controllerMethod, $middleware] = $args;
+
+        if (sizeof($args) == 2)
+            [$path, $controllerMethod] = $args;
+        else
+            [$path, $controllerMethod, $middleware] = $args;
 
         self::$routes[strtoupper($httpVerb)][$path] = $controllerMethod;
         if (!empty($middleware)) self::$routes[strtoupper($httpVerb)][$path] = [array_values($middleware)[0] => $controllerMethod];

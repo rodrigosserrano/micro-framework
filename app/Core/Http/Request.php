@@ -38,8 +38,11 @@ class Request
     }
 
     // Treatment cors and origins allowed
-    public static function cors(bool $enable = true, array $origins = []): void
+    public static function cors(bool $enable = true): void
     {
+        $origins = getenv('ALLOWED_ORIGINS');
+        $origins = (str_contains($origins, ',')) ? explode(',', $origins) : $origins;
+
         if (!$enable) {
             header("Access-Control-Allow-Origin: *");
         } else {

@@ -12,7 +12,6 @@ class Connection
     {
 
         if (!self::$instanceConn) {
-
             $dsn = getenv('DB_CONN').":host=".getenv('DB_HOST').";dbname=".getenv('DB_NAME').";port=".getenv('DB_PORT');
 
             self::$instanceConn = new PDO($dsn, getenv('DB_USER'), getenv('DB_PASS'), [
