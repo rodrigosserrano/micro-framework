@@ -4,8 +4,7 @@ use App\Core\Router\Router;
 
 /**
  * Exemple route
- * $router = new Router();    <- Instance
- * $router->get("Path", "Controller@Method", "Middleware Alias (Optional)");     <- Creating route
+ * Router::get("Path", "Controller@Method", "Middleware Alias (Optional)");
  */
 
 /** ROUTES GET */
