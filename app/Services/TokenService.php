@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Token;
+use Exception;
 
 class TokenService
 {
@@ -13,7 +14,7 @@ class TokenService
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function newToken(int $userId): string
     {
@@ -23,13 +24,16 @@ class TokenService
             'date_expires'  => date('Y-m-d H:i:s', strtotime(getenv('TOKEN_EXPIRES'))),
         ]);
 
-        if (!$createdToken) throw new \Exception('Error to create a new token.', 500);
+        if (!$createdToken) throw new Exception('Error to create a new token.', 500);
 
         $res = $this->_tokenModel->find('id', $createdToken);
 
         return $res->token;
     }
 
+    /**
+     * @throws Exception
+     */
     public function validateToken(string $token): bool
     {
         $res = $this->_tokenModel->find('token', $token);

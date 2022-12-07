@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Middlewares;
+namespace App\Core\Interfaces\Middleware;
 
 use App\Core\Http\Request;
 

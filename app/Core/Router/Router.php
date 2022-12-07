@@ -5,11 +5,11 @@ namespace App\Core\Router;
 use Error;
 
 /**
- * @method get(string $path, string $controllerMethod, array $middleware = [])
- * @method post(string $path, string $controllerMethod, array $middleware = [])
- * @method patch(string $path, string $controllerMethod, array $middleware = [])
- * @method put(string $path, string $controllerMethod, array $middleware = [])
- * @method delete(string $path, string $controllerMethod, array $middleware = [])
+ * @method static get(string $path, string $controllerMethod, array $middleware = [])
+ * @method static post(string $path, string $controllerMethod, array $middleware = [])
+ * @method static patch(string $path, string $controllerMethod, array $middleware = [])
+ * @method static put(string $path, string $controllerMethod, array $middleware = [])
+ * @method static delete(string $path, string $controllerMethod, array $middleware = [])
  */
 class Router
 {
@@ -21,7 +21,7 @@ class Router
      * Make dynamic methods routes
      * @throws Error
      */
-    public function __call($httpVerb, $args)
+    public static function __callStatic($httpVerb, $args)
     {
         if (!in_array(strtoupper($httpVerb), self::$acceptedNames)) throw new Error('Invalid router method', 500);
 
@@ -33,6 +33,6 @@ class Router
         self::$routes[strtoupper($httpVerb)][$path] = $controllerMethod;
         if (!empty($middleware)) self::$routes[strtoupper($httpVerb)][$path] = [array_values($middleware)[0] => $controllerMethod];
 
-        return $this;
+//        return self;
     }
 }
