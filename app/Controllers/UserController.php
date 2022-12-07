@@ -3,15 +3,18 @@
 namespace App\Controllers;
 
 use App\Controllers\Base\BaseController;
+use App\Models\User;
 use App\Services\UserService;
 use Exception;
 
 class UserController extends BaseController
 {
     private UserService $_userService;
+    private User $_userModel;
 
     public function __construct(){
-        $this->_userService = new UserService();
+        $this->_userModel = new User();
+        $this->_userService = new UserService($this->_userModel);
     }
 
     /**
@@ -20,6 +23,7 @@ class UserController extends BaseController
     public function register()
     {
         try {
+            $this->_userModel->checksRequiredFieldsRegister($this->request()->toJson());
             $this->_userService->register($this->request());
         } catch (Exception $e) {
             throw new Exception($e->getMessage(), $e->getCode());

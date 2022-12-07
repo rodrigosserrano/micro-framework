@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Models;
+namespace App\Core\Db;
 
-use App\Core\Db\Connection;
 use App\Core\Http\Request;
 use PDOException;
 

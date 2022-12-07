@@ -8,11 +8,10 @@ use Exception;
 
 class UserService
 {
-    private User $_userModel;
+
     private TokenService $_tokenService;
 
-    public function __construct(){
-        $this->_userModel = new User();
+    public function __construct(private readonly User $_userModel){
         $this->_tokenService = new TokenService();
     }
 
@@ -23,7 +22,6 @@ class UserService
     public function register(Request $request): void
     {
         $data = $request->toJson();
-        if (!$data->email || !$data->name || !$data->password) throw new Exception('Invalid body, needs Email, Name and Password.', 400);
         $userExists = $this->_userModel->find('email', $data->email);
 
         if($userExists) throw new Exception('User already exists.', 200);
@@ -41,7 +39,6 @@ class UserService
     public function login(Request $request): object
     {
         $data = $request->toJson();
-        if (!$data->email || !$data->password) throw new Exception('Invalid body, needs Email and Password.', 400);
         $user = $this->_userModel->find('email', $data->email);
 
         if(!$user) throw new Exception('User not exists or is invalid email and password.', 200);
